@@ -22,9 +22,9 @@ npm install
 ```
 ##### Configure
 Configure your HOMER 7 API and local Endpoint address in file `config.js`. Configure your AWS credentials in file `config.json` (confusing, I know, will clean up later) in the following format:
-
-{ "accessKeyId": "************", "secretAccessKey": "*************************", "region": "[AWS region]" }
-
+```
+{ "accessKeyId": "[AWS key]", "secretAccessKey": "[AWS secret]", "region": "[AWS region]" }
+```
 ##### Initialize
 ```
 npm start
