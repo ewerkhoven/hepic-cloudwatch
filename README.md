@@ -21,7 +21,9 @@ where the url path after 'cloudwatch' indicates aws region, log group and indivi
 npm install
 ```
 ##### Configure
-Configure your HOMER 7 API and local Endpoint address in file `config.js`. Configure your AWS credentials in file `config.json` (confusing, I know, will clean up later).
+Configure your HOMER 7 API and local Endpoint address in file `config.js`. Configure your AWS credentials in file `config.json` (confusing, I know, will clean up later) in the following format:
+
+{ "accessKeyId": "************", "secretAccessKey": "*************************", "region": "[AWS region]" }
 
 ##### Initialize
 ```
