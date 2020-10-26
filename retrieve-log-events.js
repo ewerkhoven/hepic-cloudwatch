@@ -7,6 +7,7 @@ try {
   var config = require('./config.js');
 } catch(e) { console.log('Missing config!',e); process.exit(1); }
 
+var AWS = require("aws-sdk");
 var express = require('express');
 const app = express();
 const request = require('request');
@@ -22,14 +23,18 @@ app.all('*', function(req, res, next) {
    next();
 });
 
-// HEP Post Paths
-app.post('/get/:id', function (req, res) {
-  var data = { params: req.params, body: req.body }
-  console.log('NEW API POST REQ', data);
-  res.send({"hello": "world", "data": JSON.stringify(data)})
+app.post('/cloudwatch/:region/:logGroupKey/:logStreamNamePrefix', function (req, res) {
+	var data = { params: req.params, body: req.body }
+	console.log('NEW API POST REQ', data);
+	var args = processArgs(req.params, req.body, config.cloudwatchDefaults);
+	new AWS.CloudWatchLogs({region:args.region})
+		.filterLogEvents(args.retrieveLogsParameters)
+		.promise()
+		.then(data => res.send(data))
+		.catch(err => console.error(err));
 })
 
-app.listen(port, () => console.log('API Server started',port))
+app.listen(port, () => console.log('Cloudwatch integration Server started',port))
 
 
 // HEP PUBSUB Hooks
@@ -81,6 +86,27 @@ if (ttl) {
 	setInterval(function() {
 	   publish()
 	}, (.9 * ttl)*1000 );
+}
+
+
+function processArgs(params, body, defaults) {
+
+	var result = defaults == undefined ? {} : defaults;
+	if (result.retrieveLogsParameters == undefined)
+		result.retrieveLogsParameters = {};
+
+	for (var key in params)
+		setValue(key, params[key],result);
+	for (var key in body)
+		setValue(key, body[key],result);
+	return result;	
+}
+
+function setValue(key, value, result) {
+	if (key == 'region') result.region = value;
+	else if (key == 'filterPattern') result.retrieveLogsParameters['filterPattern'] = '\"'+value+'\"';
+	else if (key == 'logGroupKey') result.retrieveLogsParameters['logGroupName'] = config.cloudwatchDefaults.logGroupName[value];
+	else result.retrieveLogsParameters[key] = value;
 }
 
 /* END */
