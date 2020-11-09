@@ -1,8 +1,8 @@
 {
   "name": "hep-pubsub-hello",
   "version": "1.0.0",
-  "description": "HEP pubsub API",
-  "main": "helloworld.js",
+  "description": "HEP Cloudwatch integration",
+  "main": "retrieve-log-events.js",
   "scripts": {
     "start": "node helloworld.js",
     "test": "echo \"Error: no test specified\" && exit 1"
