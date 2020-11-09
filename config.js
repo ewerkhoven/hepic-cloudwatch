@@ -1,6 +1,6 @@
 var config = {
   backend: 'http://vimp1001.na5b.mtl1.livevox.net:80/api/v3/agent/subscribe',
-  token: 'hEvLmrcXhMKAjIPILgycOJHVVxZfohztYDELNzKjLUeKWIuiksFdVWzZcMHnnmztDMsmkqCCFdypTVYK',
+  token: '34819d7beeabb9260a5c854bc85b3e44',
   service: {
 	"uuid": Math.random().toString(36).substring(7),
 	"host":"sipdr4000.tst2.livevox.net",

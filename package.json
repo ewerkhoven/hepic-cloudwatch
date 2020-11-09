@@ -4,7 +4,7 @@
   "description": "HEP Cloudwatch integration",
   "main": "retrieve-log-events.js",
   "scripts": {
-    "start": "node helloworld.js",
+    "start": "node retrieve-log-events.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
