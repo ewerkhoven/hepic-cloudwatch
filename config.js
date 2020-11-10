@@ -12,7 +12,7 @@ var config = {
 	"node": "cloudwatch",
 	"gid": 10
   },
-  debug: false,
+  debug: true,
   cloudwatchDefaults: {
     	region: "us-east-1",
     	logGroupName: {
