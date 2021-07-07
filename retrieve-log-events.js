@@ -23,10 +23,10 @@ app.all('*', function(req, res, next) {
    next();
 });
 
-app.post('/cloudwatch/:region/:logGroupKey/:logStreamNamePrefix', function (req, res) {
+app.post('/get/:id', function (req, res) {
 	var data = { params: req.params, body: req.body }
 	console.log('NEW API POST REQ', data);
-	var args = processArgs(req.params, req.body, config.cloudwatchDefaults);
+	var args = processArgs(req.params, req.body?.data, config.cloudwatchDefaults);
 	new AWS.CloudWatchLogs({region:args.region})
 		.filterLogEvents(args.retrieveLogsParameters)
 		.promise()
@@ -35,7 +35,6 @@ app.post('/cloudwatch/:region/:logGroupKey/:logStreamNamePrefix', function (req,
 })
 
 app.listen(port, () => console.log('Cloudwatch integration Server started',port))
-
 
 // HEP PUBSUB Hooks
 var api = config.backend;
