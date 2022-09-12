@@ -1,6 +1,6 @@
 /*
  * HEP-PUBSUB Interface Controller
- * (C) 2019 QXIP BV
+ * (C) 2019-2022 QXIP BV/Livevox inc
  */
 
 try {
@@ -23,6 +23,7 @@ app.all('*', function(req, res, next) {
    next();
 });
 
+// request from Hepic for cloudwatch log lines
 app.post('/get/:id', function (req, res) {
 	var data = { params: req.params, body: req.body }
 	console.log('NEW API POST REQ', data);
@@ -87,7 +88,9 @@ if (ttl) {
 	}, (.9 * ttl)*1000 );
 }
 
-
+// construct an object containing log search parameters and the AWS region, we will pass this obejct on to cloudwatch
+// We start with the default values we have stored in config.js and then overwrite with values found in the 
+// request url or the request body
 function processArgs(params, body, defaults) {
 
 	var result = defaults == undefined ? {} : defaults;
@@ -101,6 +104,7 @@ function processArgs(params, body, defaults) {
 	return result;	
 }
 
+// store the value in its proper place in the result object with the nomenclature cloudwatch expects
 function setValue(key, value, result) {
 	if (key == 'region') result.region = value;
 	else if (key == 'filterPattern') result.retrieveLogsParameters['filterPattern'] = '\"'+value+'\"';
