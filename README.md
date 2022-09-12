@@ -7,7 +7,7 @@
 
 #### So What?
 
-This application publishes itself as an endpoint for the HEP Pub-Sub API, announcing its capabilities to asyncronously return on-demand complementary information about correlated sessions. This particular implementation is a simple adaptation of the hello-world example.
+This application publishes itself as an endpoint for the HEP Pub-Sub API, announcing its capabilities to asyncronously return on-demand complementary information about correlated sessions. This particular implementation pulls log lines from AWS cloudwatch based on caller ids.
 
 #### What does this do?
 This first stab at integration of homer with AWS cloudwatch allows http requests like this:
